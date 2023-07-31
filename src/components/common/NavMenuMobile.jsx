@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Logo from '../../assets/images/easyshop.png'
+import Ham from '../../assets/images/bars.png'
 import MegaMenuMobile from '../home/MegaMenuMobile';
 
 
@@ -41,7 +42,7 @@ class NavMenuMobile extends Component {
         <Container fluid={"true"} className='fixed-top shadow-sm p-2 mb-0 bg-white'>
           <Row>
             <Col lg={4} md={4} sm={12}  xs={12}>
-              <Button className='btn btn-dark' onClick={this.MenuBarClickHandler}><i className='fa fa-bars'></i></Button>
+            <img src={Ham} className='bar-img' onClick={this.MenuBarClickHandler} alt=''/>
 
               <Link to="/"><img className='nav-logo' src={Logo} alt='main-logo'></img></Link>
               
