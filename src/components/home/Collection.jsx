@@ -61,7 +61,7 @@ class Collection extends Component {
         </Card.Body>
         </Card>
         </Col>
-        <Col className="p-1" key={6} xl={3} lg={3} md={3} sm={6} xs={6}>
+        <Col className="p-0" key={6} xl={3} lg={3} md={3} sm={6} xs={6}>
         <Card className='card image-box w-100'>
         <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/3/t/f/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imagh2yh32qeshz9.jpeg?q=70" alt='camera-pic'/>
         <Card.Body>

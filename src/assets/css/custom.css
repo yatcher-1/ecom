@@ -11,8 +11,11 @@
 @import "megaMenuMobile.css";
 @import "responsive.css";
 @import "megaMenuAll.css";
+@import "onboard.css";
+@import "common.css";
 
 
 body{
     background-color: #fff;
+    overflow-x: hidden;
 } 
