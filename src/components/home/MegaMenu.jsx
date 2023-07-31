@@ -1,10 +1,246 @@
 import React, { Component } from 'react'
 
-export class MegaMenu extends Component {
+class MegaMenu extends Component {
+
+    constructor(){
+      super();
+      this.MegaMenu = this.MegaMenu.bind(this);
+    }
+
+    componentDidMount(){
+      this.MegaMenu();
+    }
+
+    MegaMenu(){
+      var acc = document.getElementsByClassName("accordion");
+      var accNum = acc.length;
+      var i;
+      for(i=0;i<accNum;i++){
+        acc[i].addEventListener("click",function (){
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if(panel.style.maxHeight){
+            panel.style.maxHeight = null;
+          }else{
+            panel.style.maxHeight = panel.scrollHeight+"px"
+          }
+        })
+      }
+    }
+
   render() {
     return (
-      <div>
-        
+      <div className='accordionMenuDiv'>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
+        <div className='accordionMenuDivInside'>
+          <button className='accordion'>
+            <img className='accordionMenuIcon' src='https://cdn-icons-png.flaticon.com/128/739/739249.png' alt='some'></img> Men's Clothing
+          </button>
+<div className='panel'>
+  <ul>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt1</a>
+    </li>
+    <li>
+      <a href='/#' className='accordionItem'>Mens Tshirt2</a>
+    </li>
+  </ul>
+</div>
+        </div>
       </div>
     )
   }

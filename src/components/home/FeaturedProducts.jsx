@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Button, Card, Col, Row, Container  } from 'react-bootstrap';
+import { Card, Col, Row, Container  } from 'react-bootstrap';
 
 class FeaturedProducts extends Component {
   render() {
