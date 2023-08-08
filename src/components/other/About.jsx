@@ -1,57 +1,42 @@
 import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import ReactHtmlParser from 'react-html-parser'
 import AppURL from '../../api/AppURL';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import ReactHtmlParser from 'react-html-parser'
 
 
-export class Purchase extends Component {
+class About extends Component {
+
   constructor(){
     super();
     this.state={
-      purchase:"",
+      about:"",
       loaderDiv:"",
       mainDiv:'d-none'
     }
   }  
 
   componentDidMount(){
-    
-    let SiteInfoPurchase = sessionStorage.getItem("AllsiteInfo");
+    axios.get(AppURL.AllSiteInfo).then(response => {
+      let StatusCode = response.status;
 
-    if( SiteInfoPurchase === null ){
-      axios.get(AppURL.AllSiteInfo).then(response => {
-        let StatusCode = response.status;
-        
-        if(StatusCode === 200){
-          let JsonData = (response.data)[0]['purchase_guide'];
-          this.setState({purchase:JsonData,loaderDiv:'d-none',mainDiv:""});
-          sessionStorage.setItem("SiteInfoPurchase", JsonData);
-        }else{
-          toast.error("something is wrong",{
-            position: "bottom-center"
-          });
-        }
-        }).catch(error => {
-          toast.error("something is wrong",{
-            position: "bottom-center"
-          });
-        });
-    } // endifcondition
-    else{
-      this.setState({purchase:SiteInfoPurchase});
-    }
+      if(StatusCode === 200){
+        let JsonData = (response.data)[0]['about'];
+        this.setState({about:JsonData,loaderDiv:'d-none',mainDiv:""});
+      }
+    }).catch(error => {
+
+    });
   }
+
 
   render() {
     return (
         <Fragment>
         <Container> 
-        <Row className='p-2'>
-          <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
-          <div className={this.state.loaderDiv}>
+            <Row className='p-2'>
+                <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
+              <div className={this.state.loaderDiv}>
                 <div class="ph-item">
                   <div class="ph-col-12">
                       <div class="ph-row">
@@ -81,19 +66,18 @@ export class Purchase extends Component {
                   </div>
                 </div>
               </div>
-          <div className={this.state.mainDiv}>
-          <h4 className='section-title-login'>Purchase Page</h4> 
-          <p className='section-title-contact'>
-          { ReactHtmlParser (this.state.purchase)}
-          </p>
-          </div>
-          </Col>
-        </Row>
+              <div className={this.state.mainDiv}>
+                <h4 className='section-title-login'>About Page</h4> 
+                <p className='section-title-contact'>
+                {ReactHtmlParser(this.state.about)}
+                </p>
+              </div>
+                </Col>
+            </Row>
         </Container>
-        <ToastContainer/>
         </Fragment>
     )
   }
 }
 
-export default Purchase
+export default About

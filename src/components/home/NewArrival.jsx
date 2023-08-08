@@ -1,13 +1,19 @@
 import React, { Component, Fragment } from 'react'
-import { Card, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import axios from 'axios';
+import AppURL from '../../api/AppURL';
+import { Link } from 'react-router-dom';
 
 class NewArrival extends Component {
 
   constructor(props){
     super(props);
+    this.state = {
+      ProductData : []
+    }
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
   }
@@ -16,6 +22,14 @@ class NewArrival extends Component {
   }
   previous(){
     this.slider.slickPrev();
+  }
+  
+  componentDidMount(){
+    axios.get(AppURL.ProductListByRemark("New")).then(response => {
+        this.setState({ProductData:response.data})
+    }).catch(error => {
+
+    });
   }
 
   render() {
@@ -57,6 +71,41 @@ class NewArrival extends Component {
       ]
     };
 
+    const NewList = this.state.ProductData;
+    const MyView = NewList.map((NewList,i)=>{
+        if(NewList.special_price==="na"){
+          return <div>
+          <Card className='card image-box w-100'>
+          <img className='center w-75' src={NewList.image} alt='camera-pic'/>
+          <Card.Body>
+            <p className='product-name-on-card'>
+            {NewList.title}
+            </p>
+            <p className='product-price-on-card'>
+            Price: <strike className="text-secondary">${NewList.price}</strike>  ${NewList.special_price}
+            </p>
+          </Card.Body>
+          </Card>
+          </div>
+        }else{
+          return <div>
+          <Card className='card image-box w-100'>
+          <img className='center w-75' src={NewList.image} alt='camera-pic'/>
+          <Card.Body>
+            <p className='product-name-on-card'>
+            {NewList.title}
+            </p>
+            <p className='product-price-on-card'>
+            Price: <strike className="text-secondary">${NewList.price}</strike>  ${NewList.special_price}
+            </p>
+          </Card.Body>
+          </Card>
+          </div>
+        }
+        
+        
+        
+    });
     return (
       <Fragment>
         <Container className='text-center' fluid={true}>
@@ -73,86 +122,7 @@ class NewArrival extends Component {
           
         <Row>
         <Slider ref={c=>(this.slider=c)} {...settings}>
-          <div>
-          <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
-          <div>
-            <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
-          <div>
-            <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
-          <div>
-            <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
-          <div>
-            <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
-          <div>
-            <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
-          <div>
-            <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
-          <div>
-            <Card className='card image-box w-100'>
-          <img className='center w-75' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-            <p className='product-name-on-card'>
-            Embroidered Semi Stitched Lehenga Choli  (Purple)
-            </p>
-          </Card.Body>
-          </Card>
-          </div>
+        {MyView}  
         </Slider>
         </Row>
       </Container>

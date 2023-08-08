@@ -1,7 +1,74 @@
 import React, { Component, Fragment } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row, Toast} from 'react-bootstrap'
+import validation from '../../validation/validation';
+import axios from 'axios';
+import AppURL from '../../api/AppURL';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class Contact extends Component {
+
+    constructor(){
+        super();
+        this.state={
+            name:"",
+            email:"",
+            message:""
+        }
+    }
+
+    nameOnChange = (e)=>{
+        let name = e.target.value;
+        this.setState({name:name});
+    }
+    emailOnChange = (e)=>{
+        let email = e.target.value;
+        this.setState({email:email});
+    }
+    messageOnChange = (e)=>{
+        let message = e.target.value;
+        this.setState({message:message});
+    }
+
+    onFormSubmit = (e)=>{
+        let name = this.state.name; 
+        let email = this.state.email; 
+        let message = this.state.message; 
+        let sendBtn = document.getElementById('sendBtn'); 
+        let contactForm = document.getElementById('contactForm'); 
+
+        if(message.length===0){
+            toast.error("please send message");
+        }else if(name.length===0){
+            toast.error("please input name");
+        }else if(email.length===0){
+            toast.error("please input email");
+        }else if(!(validation.NameRegx).test(name)){
+            toast.error("wrong input in name");
+        }else{
+            sendBtn.innerHTML= 'Sending...';
+            let MyFormData = new FormData();
+            MyFormData.append("name", name);
+            MyFormData.append("email", email);
+            MyFormData.append("message", message);
+            
+            axios.post(AppURL.PostContact, MyFormData)
+            .then(function (response){
+                toast.success("message sent succefully");
+                if(response.status===200 && response.status===1){
+                    sendBtn.innerHTML = "Submit";
+                    contactForm.reset();
+                }   
+            })
+            .catch(function (error){
+                toast.error(error);
+                sendBtn.innerHTML = "Submit";
+            });
+        }
+
+        e.preventDefault();
+    }
+
   render() {
     return (
         <Fragment>
@@ -10,16 +77,16 @@ export class Contact extends Component {
                 <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
                     <Row className='text-center'>
                         <Col className='d-flex justify-content-center' md={6} lg={6} sm={12} xs={12}>
-                            <Form className='onboardForm'>
+                            <Form id='contactForm' onSubmit={this.onFormSubmit} className='onboardForm'>
                                 <h4 className='section-title-login'>Contact With Us</h4>
                                 <h6 className='section-sub-title'>Please Contact With Us.</h6>
-                                <input type='text' className='form-control m-2' placeholder='Enter Contact No.'/>
+                                <input onChange={this.nameOnChange} type='text' className='form-control m-2' placeholder='Enter Name' name='name'/>
 
-                                <input type='email' className='form-control m-2' placeholder='Enter Email'/>
+                                <input onChange={this.emailOnChange} type='email' className='form-control m-2' placeholder='Enter Email' name='email'/>
 
-                                <input type='text' className='form-control m-2' placeholder='Enter Your Message'/>
+                                <Form.Control onChange={this.messageOnChange} as='textarea' className='form-control m-2' placeholder='Enter Your Message' name='message' rows={3}/>
 
-                                <Button className='btn btn-block site-btn-login m-2'>
+                                <Button id='sendBtn' type="submit" className='btn btn-block site-btn-login m-2'>
                                     Submit
                                 </Button>
                             </Form>
@@ -32,6 +99,7 @@ export class Contact extends Component {
                 </Col>
             </Row>
         </Container>
+        <ToastContainer />
         </Fragment>
     )
   }

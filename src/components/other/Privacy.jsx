@@ -1,21 +1,76 @@
+import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL';
+import ReactHtmlParser from 'react-html-parser'
+
 
 class Privacy extends Component {
+  constructor(){
+    super();
+    this.state={
+      privacy:"",
+      loaderDiv:"",
+      mainDiv:'d-none'
+    }
+  }  
+
+  componentDidMount(){
+    axios.get(AppURL.AllSiteInfo).then(response => {
+      let StatusCode = response.status;
+
+      if(StatusCode === 200){
+        let JsonData = (response.data)[0]['privacy'];
+        this.setState({privacy:JsonData,loaderDiv:'d-none',mainDiv:""});
+      }
+    }).catch(error => {
+
+    });
+  }
+
+
   render() {
     return (
         <Fragment>
         <Container> 
             <Row className='p-2'>
                 <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
+              <div className={this.state.loaderDiv}>
+                <div class="ph-item">
+                  <div class="ph-col-12">
+                      <div class="ph-row">
+                          <div class="ph-col-4"></div>
+                          <div class="ph-col-8 empty"></div>
+                          <div class="ph-col-6"></div>
+                          <div class="ph-col-6 empty"></div>
+                          <div class="ph-col-12"></div>
+                          <div class="ph-col-12"></div>
+                          <div class="ph-col-12"></div>
+                          <div class="ph-col-12"></div>
+                      </div>
+                  </div>
+                </div>
+                <div class="ph-item">
+                  <div class="ph-col-12">
+                      <div class="ph-row">
+                          <div class="ph-col-4"></div>
+                          <div class="ph-col-8 empty"></div>
+                          <div class="ph-col-6"></div>
+                          <div class="ph-col-6 empty"></div>
+                          <div class="ph-col-12"></div>
+                          <div class="ph-col-12"></div>
+                          <div class="ph-col-12"></div>
+                          <div class="ph-col-12"></div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div className={this.state.mainDiv}>
                 <h4 className='section-title-login'>Privacy Page</h4> 
                 <p className='section-title-contact'>
-                What is Lorem Ipsum?
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-Why do we use it?
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                {ReactHtmlParser(this.state.privacy)}
                 </p>
+              </div>
                 </Col>
             </Row>
         </Container>
