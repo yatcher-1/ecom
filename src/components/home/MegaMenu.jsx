@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 class MegaMenu extends Component {
 
@@ -23,14 +24,14 @@ class MegaMenu extends Component {
     const MyView = CatList.map((CatList,i)=>{
         return <div key={i.toString()}>
         <button onClick={this.MenuItemClick} className='accordion'>
-        <img className='accordionMenuIcon' src= {CatList.category_image} alt='some'></img> {CatList.category_name}
+        <img className='accordionMenuIcon' src={CatList.category_image} alt='some'></img> {CatList.category_name}
       </button>
             <div className='panel'>
             <ul>
             {
               (CatList.subcategory_name).map((SubList,i)=>{
-                return <li>
-              <a href='/#' className='accordionItem'>{SubList.subcategory_name}</a>
+                return <li key={i}>
+              <Link to={"/productsubcategory/"+CatList.category_name+"/"+SubList.subcategory_name}  className='accordionItem'>{SubList.subcategory_name}</Link>
               </li>
               })
             }
@@ -39,8 +40,6 @@ class MegaMenu extends Component {
             </div>
         </div>
     });
-
-
 
     return (
       <div className='accordionMenuDiv'>

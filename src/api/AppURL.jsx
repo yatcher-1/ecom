@@ -4,6 +4,7 @@ class AppURL{
     static PostContact = this.BaseURL+"/postcontact"
     static AllSiteInfo = this.BaseURL+"/allsiteinfo"
     static AllCategory = this.BaseURL+"/allcategory"
+    static AllSlider = this.BaseURL+"/allslider"
     static ProductListByRemark(Remark){
        return this.BaseURL+"/productlistbyremark/"+Remark; 
     } 
@@ -11,7 +12,7 @@ class AppURL{
        return this.BaseURL+"/productlistbycategory/"+category; 
     } 
     static ProductListBySubCategory(category, subcategory){
-       return this.BaseURL+"/productlistbysubcategory/"+category+"/"+subcategory; 
+       return `${this.BaseURL}/productlistbysubcategory/${category}/${subcategory}`; 
     } 
 }
 

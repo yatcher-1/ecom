@@ -6,6 +6,10 @@
     .Desktop{
          display: none;
     }
+    .slider-img{
+        width: 100% !important;
+        height: 226px;
+    }
 }
 
 @media (min-width: 375.98px) and (max-width: 575.98px){
@@ -15,6 +19,10 @@
     .Desktop{
          display: none;
          }  
+         .slider-img{
+            width: 100% !important;
+            height: 226px;
+        }
  
 }
 

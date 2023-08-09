@@ -56,19 +56,18 @@ class HomeSlider extends Component {
           }
         ]
       };
+    
+      const SliderData = this.props.data;
+      const MyView = SliderData.map((SliderList, i)=>{
+        return  <div key={i.toString()}>
+        <img className='slider-img' src={SliderList.slider_image} alt='' />
+      </div>
+      })
 
     return (
       <div>
         <Slider {...settings}>
-          <div>
-            <img className='slider-img' src='https://raw.githubusercontent.com/easylearningbd/react-ecommerce/c4da25bd5dc31260659a65d4cb5f0e85392b2a77/src/assets/images/slider1.jpg' alt='' />
-          </div>
-          <div>
-            <img className='slider-img' src='https://raw.githubusercontent.com/easylearningbd/react-ecommerce/c4da25bd5dc31260659a65d4cb5f0e85392b2a77/src/assets/images/slider2.jpg' alt='' />
-          </div>
-          <div>
-            <img className='slider-img' src='https://raw.githubusercontent.com/easylearningbd/react-ecommerce/c4da25bd5dc31260659a65d4cb5f0e85392b2a77/src/assets/images/slider3.jpg' alt='' />
-          </div>
+          {MyView}
         </Slider>
       </div>
     )

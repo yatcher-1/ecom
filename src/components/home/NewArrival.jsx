@@ -112,9 +112,9 @@ class NewArrival extends Component {
         <div className="section-title text-center mb-55">
         <h2>
 
-          <a className='btn btn-sm ml-2 site-btn' onClick={this.previous}><i className='fa fa-angle-left'></i></a>
+          <a className='btn btn-sm ml-2 site-btn' onClick={this.previous} href='/'><i className='fa fa-angle-left'></i></a>
           &nbsp; New Arrival &nbsp;
-          <a className='btn btn-sm ml-2 site-btn' onClick={this.next}><i className='fa fa-angle-right'></i></a>
+          <a className='btn btn-sm ml-2 site-btn' onClick={this.next} href='/'><i className='fa fa-angle-right'></i></a>
 
         </h2>
         <p className='section-sub-title'>Some Of Our Exclusive Collection</p>
