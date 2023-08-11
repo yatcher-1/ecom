@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 import { Card, Col, Row, Container  } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AppURL from '../../api/AppURL';
+import FeaturedLoading from '../PlaceHolder/FeaturedLoading';
 
 class FeaturedProducts extends Component {
   
@@ -10,12 +11,14 @@ class FeaturedProducts extends Component {
     super();
     this.state={
       ProductData:[],
+      isLoading:"",
+      mainDiv:'d-none',
     }
   }  
 
   componentDidMount(){
     axios.get(AppURL.ProductListByRemark("Featured")).then(response => {
-        this.setState({ProductData:response.data})
+        this.setState({ProductData:response.data,isLoading:"d-none",mainDiv:""})
     }).catch(error => {
 
     });
@@ -27,7 +30,7 @@ class FeaturedProducts extends Component {
     const MyView = FeaturedList.map((FeaturedList,i)=>{
         if(FeaturedList.special_price==="na"){
           return <Col className="p-1" key={i.toString()} xl={2} lg={2} md={2} sm={4} xs={6}>
-          <Link to="/productdetails">
+          <Link className="text-link" to={"/productdetails/"+FeaturedList.id}>
           <Card className='card image-box'>
           <img className='center' src={FeaturedList.image} alt='camera-pic'/>
           <Card.Body>
@@ -43,7 +46,7 @@ class FeaturedProducts extends Component {
           </Col>
         }else{
           return <Col className="p-1" key={i.toString()} xl={2} lg={2} md={2} sm={4} xs={6}>
-        <Link to="/productdetails">
+        <Link className="text-link" to={"/productdetails/"+FeaturedList.id}>
         <Card className='card image-box'>
         <img className='center' src={FeaturedList.image} alt='camera-pic'/>
         <Card.Body>
@@ -65,6 +68,8 @@ class FeaturedProducts extends Component {
 
     return (
       <Fragment>
+        <FeaturedLoading isLoading={this.state.isLoading}/>
+      <div className={this.state.mainDiv}>
       <Container className='text-center' fluid={true}>
       <div className="section-title text-center mb-55">
       <h2>Featured Product</h2>
@@ -74,6 +79,7 @@ class FeaturedProducts extends Component {
       {MyView}
       </Row>
       </Container>
+      </div>
       </Fragment>
     )
   }

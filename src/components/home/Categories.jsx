@@ -3,19 +3,22 @@ import React, { Component, Fragment } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import AppURL from '../../api/AppURL';
 import { Link } from 'react-router-dom';
+import CategoryLoading from '../PlaceHolder/CategoryLoading';
 
 class Categories extends Component {
   
   constructor(){
     super();
     this.state = {
-      MenuData:[]
+      MenuData:[],
+      isLoading:"",
+      mainDiv:"d-none",
     }
   }
 
   componentDidMount(){
     axios.get(AppURL.AllCategory).then(response => {
-      this.setState({MenuData:response.data});
+      this.setState({MenuData:response.data,isLoading:"d-none",mainDiv:""});
 
     }).catch(error => {
 
@@ -27,7 +30,7 @@ class Categories extends Component {
     const CatList = this.state.MenuData;
     const MyView = CatList.map((CatList,i)=>{
       return <Col key={i.toString()} className="p-0" xl={2} lg={2} md={2} sm={6} xs={6}>
-      <Link to={"/productcategory/"+CatList.category_name}>
+      <Link className="text-link"  to={"/productcategory/"+CatList.category_name}>
       <Card className='h-100 w-100 text-center'>
       <Card.Body>
       <img className='center mb-3' src={CatList.category_image} alt='camera-pic'/>
@@ -41,6 +44,8 @@ class Categories extends Component {
 
     return (
       <Fragment>
+        <CategoryLoading isLoading={this.state.isLoading}/>
+      <div className={this.state.mainDiv}>
         <Container className='text-center' fluid={true}>
         <div className="section-title text-center mb-55">
         <h2>Categories</h2>
@@ -50,6 +55,7 @@ class Categories extends Component {
             {MyView}          
           </Row>
         </Container>
+        </div>
       </Fragment>
     )
   }

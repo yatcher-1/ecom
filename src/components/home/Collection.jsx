@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import AppURL from '../../api/AppURL';
+import CollectionLoadng from '../PlaceHolder/CollectionLoadng';
 import { Link } from 'react-router-dom';
 
 class Collection extends Component {
@@ -10,12 +11,14 @@ class Collection extends Component {
     super();
     this.state={
       ProductData:[],
+      isLoading:"",
+      mainDiv:'d-none',
     }
   }  
 
   componentDidMount(){
     axios.get(AppURL.ProductListByRemark("Collection")).then(response => {
-        this.setState({ProductData:response.data})
+        this.setState({ProductData:response.data,isLoading:"d-none",mainDiv:""})
     }).catch(error => {
 
     });
@@ -26,6 +29,7 @@ class Collection extends Component {
     const MyView = CollectionList.map((CollectionList,i)=>{
         if(CollectionList.special_price==="na"){
           return <Col className="p-0" key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
+          <Link className="text-link"  to={"/productdetails/"+CollectionList.id}>
           <Card className='card image-box w-100'>
           <img className='center w-75' src={CollectionList.image} alt='camera-pic'/>
           <Card.Body>
@@ -37,9 +41,11 @@ class Collection extends Component {
             </p>
           </Card.Body>
           </Card>
+          </Link>
           </Col>
         }else{
           return <Col className="p-0" key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
+          <Link className="text-link"  to={"/productdetails/"+CollectionList.id}>
           <Card className='card image-box w-100'>
           <img className='center w-75' src={CollectionList.image} alt='camera-pic'/>
           <Card.Body>
@@ -51,11 +57,14 @@ class Collection extends Component {
             </p>
           </Card.Body>
           </Card>
+          </Link>
           </Col>
         }
     });
     return (
       <Fragment>
+              <CollectionLoadng isLoading={this.state.isLoading}/>
+              <div className={this.state.mainDiv}>
       <Container className='text-center' fluid={true}>
       <div className="section-title text-center mb-55">
       <h2>Collection</h2>
@@ -65,6 +74,7 @@ class Collection extends Component {
         {MyView}
       </Row>
       </Container>
+      </div>  
       </Fragment>
     )
   }

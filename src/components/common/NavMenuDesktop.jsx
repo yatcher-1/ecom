@@ -44,7 +44,9 @@ class NavMenuDesktop extends Component {
 
             <img src={Ham} className='bar-img' onClick={this.MenuBarClickHandler} alt=''/>
 
-              <Link to="/"><img className='nav-logo' src={Logo} alt='main-logo'></img></Link>
+              <Link to="/" onClick={() => {
+              window.location.href = "/";
+            }}><img className='nav-logo' src={Logo} alt='main-logo'></img></Link>
             
             </Col>
             <Col className="p-1 mt-1" lg={4} sm={12} md={4} xs={12}>

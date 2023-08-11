@@ -21,19 +21,20 @@ class AppRoute extends Component {
     return (
       <Fragment>
         <Routes>
-        <Route path="/" element={<HomePage />}/>
-        <Route path="/login" element={<UserLoginPage />}/>
-        <Route path="/contact" element={<ContactPage />}/>
-        <Route path="/purchase" element={<PurchasePage />}/>
-        <Route path="/privacy" element={<PrivacyPage />}/>
-        <Route path="/about" element={<AboutPage />}/>
-        <Route path="/refund" element={<RefundPage />}/>
-        <Route path="/productdetails" element={<ProductDetailPage />}/>
-        <Route path="/notification" element={<NotificationPage />}/>
-        <Route path="/favourite" element={<FavouritePage />}/>
-        <Route path="/cart" element={<Cart />}/>
-        <Route exact path="/productcategory/:category" element={<ProductCategoryPage1 />}/>
-        <Route exact path="/productsubcategory/:category/:subcategory" element={<ProductSubCategoryPage />}/>
+        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/login" element={<UserLoginPage />} />
+        <Route exact path="/contact" element={<ContactPage />} />
+        <Route exact path="/purchase" element={<PurchasePage />} />
+        <Route exact path="/privacy" element={<PrivacyPage />} />
+        <Route exact path="/about" element={<AboutPage />} />
+        <Route exact path="/refund" element={<RefundPage />} />
+        <Route exact path="/productdetails/:code" element={<ProductDetailPage />} />
+        <Route exact path="/notification" element={<NotificationPage />} />
+        <Route exact path="/favourite" element={<FavouritePage />} />
+        <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/productcategory/:category" element={<ProductCategoryPage1 />} />
+        <Route exact path="/productsubcategory/:category/:subcategory" element={<ProductSubCategoryPage />} />
+        <Route exact path="/notification" element={<NotificationPage />} />
         </Routes>
       </Fragment>
     )

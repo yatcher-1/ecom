@@ -44,7 +44,9 @@ class NavMenuMobile extends Component {
             <Col lg={4} md={4} sm={12}  xs={12}>
             <img src={Ham} className='bar-img' onClick={this.MenuBarClickHandler} alt=''/>
 
-              <Link to="/"><img className='nav-logo' src={Logo} alt='main-logo'></img></Link>
+              <Link to="/" onClick={() => {
+              window.location.href = "/";
+            }}><img className='nav-logo' src={Logo} alt='main-logo'></img></Link>
               
               <Link to="/cart" className='cart-btn btn btn-dark'><i className='fa fa-shopping-cart'> 3 Items</i></Link>
             </Col>

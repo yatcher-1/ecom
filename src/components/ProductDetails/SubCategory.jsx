@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class SubCategory extends Component {
   render() {
@@ -9,6 +10,7 @@ class SubCategory extends Component {
     const MyView = MyList.map((MyList,i)=>{
         if(MyList.special_price==="na"){
           return <Col className="p-0" key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
+          <Link className="text-link" to={"/productdetails/"+MyList.id}>
           <Card className='card image-box w-100'>
           <img className='center w-75' src={MyList.image} alt='camera-pic'/>
           <Card.Body>
@@ -20,9 +22,11 @@ class SubCategory extends Component {
             </p>
           </Card.Body>
           </Card>
+          </Link>
           </Col>
         }else{
           return <Col className="p-0" key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
+          <Link className="text-link"  to={"/productdetails/"+MyList.id}>
           <Card className='card image-box w-100'>
           <img className='center w-75' src={MyList.image} alt='camera-pic'/>
           <Card.Body>
@@ -34,6 +38,7 @@ class SubCategory extends Component {
             </p>
           </Card.Body>
           </Card>
+          </Link>
           </Col>
         }
     });

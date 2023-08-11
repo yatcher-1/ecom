@@ -6,13 +6,16 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import AppURL from '../../api/AppURL';
 import { Link } from 'react-router-dom';
+import NewArrivalLoading from '../PlaceHolder/NewArrivalLoading';
 
 class NewArrival extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      ProductData : []
+      ProductData : [],
+      isLoading:"",
+      mainDiv:'d-none',
     }
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -26,7 +29,7 @@ class NewArrival extends Component {
   
   componentDidMount(){
     axios.get(AppURL.ProductListByRemark("New")).then(response => {
-        this.setState({ProductData:response.data})
+        this.setState({ProductData:response.data,isLoading:"d-none",mainDiv:""})
     }).catch(error => {
 
     });
@@ -74,7 +77,8 @@ class NewArrival extends Component {
     const NewList = this.state.ProductData;
     const MyView = NewList.map((NewList,i)=>{
         if(NewList.special_price==="na"){
-          return <div>
+          return <div key={i.toString()}>
+          <Link className="text-link"  to={"/productdetails/"+NewList.id}>
           <Card className='card image-box w-100'>
           <img className='center w-75' src={NewList.image} alt='camera-pic'/>
           <Card.Body>
@@ -86,9 +90,11 @@ class NewArrival extends Component {
             </p>
           </Card.Body>
           </Card>
+          </Link>
           </div>
         }else{
           return <div>
+          <Link className="text-link" to={"/productdetails/"+NewList.id}>
           <Card className='card image-box w-100'>
           <img className='center w-75' src={NewList.image} alt='camera-pic'/>
           <Card.Body>
@@ -100,6 +106,7 @@ class NewArrival extends Component {
             </p>
           </Card.Body>
           </Card>
+          </Link>
           </div>
         }
         
@@ -108,6 +115,8 @@ class NewArrival extends Component {
     });
     return (
       <Fragment>
+              <NewArrivalLoading isLoading={this.state.isLoading}/>
+        <div className={this.state.mainDiv}>
         <Container className='text-center' fluid={true}>
         <div className="section-title text-center mb-55">
         <h2>
@@ -126,6 +135,7 @@ class NewArrival extends Component {
         </Slider>
         </Row>
       </Container>
+      </div>
       </Fragment>
     );
       
