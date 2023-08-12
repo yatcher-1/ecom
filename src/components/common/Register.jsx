@@ -3,21 +3,23 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import LoginImage from "../../assets/images/login.png"
 import { Link } from 'react-router-dom'
 
-class UserLogin extends Component {
-  render() {
+export class Register extends Component  {
+ render() {
     return (
-    <Fragment>
-    <Container> 
+<Fragment>
+<Container> 
     <Row className='p-2'>
         <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
             <Row className='text-center'>
                 <Col className='d-flex justify-content-center' md={6} lg={6} sm={12} xs={12}>
                     <Form className='onboardForm'>
-                        <h4 className='section-title-login'>User Sign-in</h4>
+                        <h4 className='section-title-login'>User Register</h4>
+                        <input type='name' className='form-control m-2' placeholder='Enter your name'/>
                         <input type='email' className='form-control m-2' placeholder='Enter your email'/>
-                        <input type='password' className='form-control m-2' placeholder='Enter Your password'/>
+                        <input type='password' className='form-control m-2' placeholder='Enter your password'/>
+                        <input type='password' className='form-control m-2' placeholder='confirm password'/>
                         <Button className='btn btn-block site-btn-login m-2'>
-                            Login
+                            Sign Up
                         </Button>
                         <br></br><br></br>
                         <hr />
@@ -25,7 +27,7 @@ class UserLogin extends Component {
                             <b>Forget My password?</b> <Link to={"/forget"}>Forget Password</Link>
                         </p>
                         <p>
-                            <b>Dont Have an Account?</b> <Link to={"/register"}>Register</Link>
+                            <b>Aldready Have an Account?</b> <Link to={"/login"}>Login</Link>
                         </p>
                     </Form>
                 </Col>
@@ -42,4 +44,4 @@ class UserLogin extends Component {
   }
 }
 
-export default UserLogin
+export default Register

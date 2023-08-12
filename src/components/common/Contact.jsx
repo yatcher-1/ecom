@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import { Button, Col, Container, Form, Row, Toast} from 'react-bootstrap'
+import { Breadcrumb, Button, Col, Container, Form, Row, Toast} from 'react-bootstrap'
 import validation from '../../validation/validation';
 import axios from 'axios';
 import AppURL from '../../api/AppURL';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 export class Contact extends Component {
 
@@ -72,7 +73,17 @@ export class Contact extends Component {
   render() {
     return (
         <Fragment>
-        <Container> 
+        <Container>
+        <div className="breadbody">
+        <Breadcrumb>
+        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item>
+        <Link to="/contact" onClick={() => {
+              window.location.href = "/contact";
+            }}>Contact</Link>
+        </Breadcrumb.Item>
+        </Breadcrumb>
+        </div> 
             <Row className='p-2'>
                 <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
                     <Row className='text-center'>

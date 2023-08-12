@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Breadcrumb, Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 class SubCategory extends Component {
@@ -46,6 +46,21 @@ class SubCategory extends Component {
     return (
       <Fragment>
       <Container className='text-center' fluid={true}>
+      <div className="breadbody">
+        <Breadcrumb>
+        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item>
+        <Link to={"/productcategory/"+Category} onClick={() => {
+              window.location.href = `/productcategory/${Category}`;
+            }}>{Category}</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+        <Link to={"/productsubcategory/"+Category+"/"+SubCategory} onClick={() => {
+              window.location.href = `/productsubcategory/${Category}/${SubCategory}`;
+            }}>{SubCategory}</Link>
+        </Breadcrumb.Item>
+        </Breadcrumb>
+        </div>
       <div className="section-title text-center mb-55">
       <h2>{Category} / {SubCategory}</h2>
       </div>

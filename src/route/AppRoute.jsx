@@ -13,6 +13,11 @@ import Cart from '../pages/Cart'
 import AboutPage from '../pages/AboutPage'
 import ProductCategoryPage1 from '../pages/ProductCategoryPage'
 import ProductSubCategoryPage from '../pages/ProductSubCategoryPage'
+import Search from '../pages/Search'
+import RegisterPage from '../pages/RegisterPage'
+import ForgetPasswordPage from '../pages/ForgetPasswordPage'
+import ResetPasswordPage from '../pages/ResetPasswordPage'
+import ProdilePage from '../pages/ProdilePage'
 
 
 class AppRoute extends Component {
@@ -23,6 +28,10 @@ class AppRoute extends Component {
         <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/login" element={<UserLoginPage />} />
+        <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path="/forget" element={<ForgetPasswordPage />} />
+        <Route exact path="/reset/:pincode" element={<ResetPasswordPage />} />
+        <Route exact path="/profile" element={<ProdilePage />} />
         <Route exact path="/contact" element={<ContactPage />} />
         <Route exact path="/purchase" element={<PurchasePage />} />
         <Route exact path="/privacy" element={<PrivacyPage />} />
@@ -35,6 +44,7 @@ class AppRoute extends Component {
         <Route exact path="/productcategory/:category" element={<ProductCategoryPage1 />} />
         <Route exact path="/productsubcategory/:category/:subcategory" element={<ProductSubCategoryPage />} />
         <Route exact path="/notification" element={<NotificationPage />} />
+        <Route exact path="/productbysearch/:searchkey" element={<Search />} />
         </Routes>
       </Fragment>
     )

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import { Container,Row,Col} from 'react-bootstrap'
+import { Container,Row,Col, Breadcrumb} from 'react-bootstrap'
 import ReactDOM from 'react-dom'
+import { Link } from 'react-router-dom';
 
 class ProductDetails extends Component {
 
@@ -49,7 +50,7 @@ class ProductDetails extends Component {
           let image_four = ProductAllData["productDetails"][0]["image_four"];
           let color = ProductAllData["productDetails"][0]["color"];
           let size = ProductAllData["productDetails"][0]["size"];
-          let product_id = ProductAllData["productDetails"][0]["product_id"];
+          let product_id = ProductAllData["productDetails"][0]["poduct_id"];
           let shortDesc = ProductAllData["productDetails"][0]["short_description"];
           let longDesc = ProductAllData["productDetails"][0]["long_description"];
 
@@ -79,6 +80,26 @@ class ProductDetails extends Component {
           return (
                <Fragment>
                <Container  className="BetweenTwoSection"  fluid={"true"}>
+               <div className="breadbody">
+        <Breadcrumb>
+        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item>
+        <Link to={"/productcategory/"+category} onClick={() => {
+              window.location.href = `/productcategory/${category}`;
+            }}>{category}</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+        <Link to={"/productsubcategory/"+subCategory+"/"+subCategory} onClick={() => {
+              window.location.href = `/productsubcategory/${category}/${subCategory}`;
+            }}>{subCategory}</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+        <Link to={"/productdetails/"+product_id} onClick={() => {
+              window.location.href = `/productdetails/${product_id}`;
+            }}>{title}</Link>
+        </Breadcrumb.Item>
+        </Breadcrumb>
+        </div>
                    <Row className="p-2">
           <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
           <Row>

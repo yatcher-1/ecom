@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Navbar, Row } from 'react-bootstrap'
 import Logo from '../../assets/images/easyshop.png'
 import Ham from '../../assets/images/bars.png'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import MegaMenuAll from '../home/MegaMenuAll'
 
 class NavMenuDesktop extends Component {
@@ -10,7 +10,32 @@ class NavMenuDesktop extends Component {
     super();
     this.state= {
       SideNavState: "sideNavClose",
-      ContentOverState: "ContentOverlayClose" 
+      ContentOverState: "ContentOverlayClose" ,
+      SearchKey:"",
+      SearchRedirectStatus:false,
+    }
+    this.SearchOnChange = this.SearchOnChange.bind(this);
+    this.SearchOnClick = this.SearchOnClick.bind(this);
+    this.searchRedirect = this.searchRedirect.bind(this);
+  }
+
+  SearchOnChange(e){
+    let SearchKey = e.target.value;
+      this.setState({SearchKey:SearchKey});
+  }
+
+  SearchOnClick(){
+    if(this.state.SearchKey.length >= 2){
+      this.setState({SearchRedirectStatus:true})
+      
+    }else{
+
+    }
+  }
+
+  searchRedirect(){
+    if(this.state.SearchRedirectStatus===true){
+      return <Navigate to={"/productbysearch/"+this.state.SearchKey} />
     }
   }
 
@@ -49,25 +74,27 @@ class NavMenuDesktop extends Component {
             }}><img className='nav-logo' src={Logo} alt='main-logo'></img></Link>
             
             </Col>
+
             <Col className="p-1 mt-1" lg={4} sm={12} md={4} xs={12}>
               <div className='input-group w-100'>
-              <input type='text' name='' className='form-control' />
-              <Button type='button' className='btn site-btn'>
+              <input onChange={this.SearchOnChange} type='text' name='' className='form-control' />
+              <Button onClick={this.SearchOnClick} type='button' className='btn site-btn'>
                 <i className='fa fa-search'></i>
               </Button> 
               </div>
             </Col>
+            
             <Col className="p-1 mt-1" lg={4} sm={12} md={4} xs={12}>
               <Link to="/notification" className='btn '><i className='fa h4 fa-bell'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
               </Link>
               <Link to="/favourite" className='btn '><i className='fa h4 fa-heart'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
               </Link>
-              <a className='btn' href='/'><i className='fa h4 fa-mobile-alt'></i></a>
               <Link to='/login' className='h4 btn'>Login</Link>
               <Link to='/register' className='h4 btn'>Register</Link>
               <Link to="/cart" className='cart-btn btn btn-dark'><i className='fa fa-shopping-cart'> 3 Items</i></Link>
             </Col>
           </Row>
+          {this.searchRedirect()}
         </Container>
         <div className={this.state.SideNavState}>
           <MegaMenuAll />

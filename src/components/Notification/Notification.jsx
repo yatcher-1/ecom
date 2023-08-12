@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { Component, Fragment } from 'react'
-import { Container, Row, Col, Card, Button, Modal } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Modal, Breadcrumb } from 'react-bootstrap'
 import AppURL from '../../api/AppURL';
+import { Link } from 'react-router-dom';
 
 class Notification extends Component {
 
@@ -57,6 +58,16 @@ render() {
 return (
 <Fragment>
 <Container className="TopSection">
+<div className="breadbody">
+        <Breadcrumb>
+        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item>
+        <Link to={"/notification"} onClick={() => {
+              window.location.href = `/notification`;
+            }}>Notification</Link>
+        </Breadcrumb.Item>
+        </Breadcrumb>
+        </div>
     <Row>
         {MyView}
     </Row>
