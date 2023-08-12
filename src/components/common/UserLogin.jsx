@@ -1,10 +1,47 @@
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import LoginImage from "../../assets/images/login.png"
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import axios from 'axios';
+import AppURL from '../../api/AppURL';
 
 class UserLogin extends Component {
+
+    constructor(){
+        super();
+        this.state={
+            email:"",
+            password:"",
+            message:"",
+            loggedIn:false,
+        }
+    }
+
+    // Login Form Submit Method
+
+    FormSubmit = (e) => {
+        e.preventDefault();
+        const data = {
+            email: this.state.email,
+            password:this.state.password,
+        }
+        axios.post(AppURL.UserLogin,data).then(response => {
+            localStorage.setItem('token',response.data.token);
+            this.setState({loggedIn:true});
+        }).catch(error => {
+    
+        });
+    }
+
   render() {
+
+    // after Login Redirect to profile page
+    if(this.state.loggedIn){
+       return <Navigate to={"/profile"} />
+    }else{
+
+    }
+
     return (
     <Fragment>
     <Container> 
@@ -12,11 +49,14 @@ class UserLogin extends Component {
         <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
             <Row className='text-center'>
                 <Col className='d-flex justify-content-center' md={6} lg={6} sm={12} xs={12}>
-                    <Form className='onboardForm'>
+                    <Form onSubmit={this.FormSubmit} className='onboardForm'>
                         <h4 className='section-title-login'>User Sign-in</h4>
-                        <input type='email' className='form-control m-2' placeholder='Enter your email'/>
-                        <input type='password' className='form-control m-2' placeholder='Enter Your password'/>
-                        <Button className='btn btn-block site-btn-login m-2'>
+                        
+                        <input type='email' onChange={(e)=>{this.setState({email:e.target.value})}} className='form-control m-2' placeholder='Enter your email'/>
+
+                        <input type='password' onChange={(e)=>{this.setState({password:e.target.value})}}className='form-control m-2' placeholder='Enter Your password'/>
+                        
+                        <Button type="submit" className='btn btn-block site-btn-login m-2'>
                             Login
                         </Button>
                         <br></br><br></br>

@@ -18,20 +18,45 @@ import RegisterPage from '../pages/RegisterPage'
 import ForgetPasswordPage from '../pages/ForgetPasswordPage'
 import ResetPasswordPage from '../pages/ResetPasswordPage'
 import ProdilePage from '../pages/ProdilePage'
+import axios from 'axios'
+import AppURL from '../api/AppURL'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
 
 
 class AppRoute extends Component {
 
+  constructor(){
+    super();
+    this.state={
+      user:{},
+    }
+  }
+
+  componentDidMount(){
+    axios.get(AppURL.UserData).then(response => {
+        this.setUser(response.data)
+    }).catch(error => {
+  
+    });
+  }
+
+  setUser = (user) => {
+    this.setState({user:user})
+  }
+
   render() {
     return (
       <Fragment>
+        
+        <NavMenuDesktop user={this.state.user} setUser={this.setUser}/>
+
         <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/login" element={<UserLoginPage />} />
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/forget" element={<ForgetPasswordPage />} />
         <Route exact path="/reset/:pincode" element={<ResetPasswordPage />} />
-        <Route exact path="/profile" element={<ProdilePage />} />
+        <Route exact path="/profile" element={<ProdilePage user={this.state.user} setUser={this.setUser}/>} />
         <Route exact path="/contact" element={<ContactPage />} />
         <Route exact path="/purchase" element={<PurchasePage />} />
         <Route exact path="/privacy" element={<PrivacyPage />} />

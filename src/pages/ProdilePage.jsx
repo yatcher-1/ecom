@@ -6,10 +6,14 @@ import FooterMobile from '../components/common/FooterMobile'
 import Profile from '../components/common/Profile'
 
 export class ProdilePage extends Component {
+
     componentDidMount(){
         window.scroll(0,0)
       }
       render() {
+        
+        const User = this.props.user;
+
         return (
             <Fragment>
             <div className='Desktop'>
@@ -18,7 +22,7 @@ export class ProdilePage extends Component {
             <div className='Mobile'>
               <NavMenuMobile />
             </div>
-            <Profile />
+            <Profile user = {User}/>
             <div className='Desktop'>
               <FooterDesktop />
             </div>
