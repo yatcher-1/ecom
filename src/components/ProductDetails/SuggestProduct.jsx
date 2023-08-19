@@ -1,101 +1,102 @@
+import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import AppURL from '../../api/AppURL';
 
 class SuggestProduct extends Component {
+    constructor(){
+        super();
+        this.state={
+            ProductData:[],
+        }
+    }
+
+    componentDidMount(){
+        let subcategory = this.props.subcategory;
+        axios.get(AppURL.SimilarProduct(subcategory)).then(response => {
+
+            this.setState({ProductData:response.data});
+
+        }).catch(error => {
+            
+        });
+    }
   render() {
-    return (
-        <Fragment>
+
+    const MyList = this.state.ProductData;
+
+    if(MyList.length>0){
+        const MyView = MyList.map((ProductList ,i)=>{
+            if(ProductList.special_price==="na"){
+                return <Col className="p-1" key={i.toString()} xl={2} lg={2} md={2} sm={4} xs={6}>
+                <Link className="text-link" to={"/productdetails/"+ProductList.id}>
+                <Card className='card image-box'>
+                <img className='center' src={ProductList.image} alt='camera-pic'/>
+                <Card.Body>
+                    <p className='product-name-on-card'>
+                    {ProductList.title}
+                    </p>
+                    <p className='product-price-on-card'>
+                    Price: ${ProductList.price}
+                    </p>
+                </Card.Body>
+                </Card>
+                </Link>
+                </Col>
+              }else{
+                return <Col className="p-1" key={i.toString()} xl={2} lg={2} md={2} sm={4} xs={6}>
+              <Link className="text-link" to={"/productdetails/"+ProductList.id}>
+              <Card className='card image-box'>
+              <img className='center' src={ProductList.image} alt='camera-pic'/>
+              <Card.Body>
+                  <p className='product-name-on-card'>
+                  {ProductList.title}
+                  </p>
+                  <p className='product-price-on-card'>
+                  Price: <strike className="text-secondary">${ProductList.price}</strike>  ${ProductList.special_price}
+                  </p>
+              </Card.Body>
+              </Card>
+              </Link>
+              </Col>
+              }
+        })
+        return (
+            <Fragment>
         <Container className='text-center' fluid={true}>
         <div className="section-title text-center mb-55">
         <h2>You May Also Like</h2>
         <p className='section-sub-title'>Some Of Our Exclusive Collection</p>
         </div>
         <Row>
-          <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-          <Link to="/productdetails">
-          <Card className='card image-box'>
-          <img className='center' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/l/x/d/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcwfb3pjh2hf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-              <p className='product-name-on-card'>
-              Embroidered Semi Stitched Lehenga Choli  (Purple)
-              </p>
-              <p className='product-price-on-card'>
-              Price: 30$
-              </p>
-          </Card.Body>
-          </Card>
-          </Link>
-          </Col>
-          <Col className="p-1" key={2} xl={2} lg={2} md={2} sm={4} xs={6}>
-          <Card className='card image-box'>
-          <img className='center' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/w/x/m/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imagphrhhxx2z4mt.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-              <p className='product-name-on-card'>
-              Embroidered Semi Stitched Lehenga Choli  (Purple)
-              </p>
-              <p className='product-price-on-card'>
-              Price: 30$
-              </p>
-          </Card.Body>
-          </Card>
-          </Col>
-          <Col className="p-1" key={3} xl={2} lg={2} md={2} sm={4} xs={6}>
-          <Card className='card image-box'>
-          <img className='center' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/7/m/u/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcw5vmf6eb6y.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-              <p className='product-name-on-card'>
-              Embroidered Semi Stitched Lehenga Choli  (Purple)
-              </p>
-              <p className='product-price-on-card'>
-              Price: 30$
-              </p>
-          </Card.Body>
-          </Card>
-          </Col>
-          <Col className="p-1" key={4} xl={2} lg={2} md={2} sm={4} xs={6}>
-          <Card className='card image-box'>
-          <img className='center' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/b/k/f/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcvr8nhqehzf.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-              <p className='product-name-on-card'>
-              Embroidered Semi Stitched Lehenga Choli  (Purple)
-              </p>
-              <p className='product-price-on-card'>
-              Price: 30$
-              </p>
-          </Card.Body>
-          </Card>
-          </Col>
-          <Col className="p-1" key={5} xl={2} lg={2} md={2} sm={4} xs={6}>
-          <Card className='card image-box'>
-          <img className='center' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/8/y/t/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imaggcvfxfynyfjg.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-              <p className='product-name-on-card'>
-              Embroidered Semi Stitched Lehenga Choli  (Purple)
-              </p>
-              <p className='product-price-on-card'>
-              Price: 30$
-              </p>
-          </Card.Body>
-          </Card>
-          </Col>
-          <Col className="p-1" key={6} xl={2} lg={2} md={2} sm={4} xs={6}>
-          <Card className='card image-box'>
-          <img className='center' src="https://rukminim2.flixcart.com/image/832/832/xif0q/lehenga-choli/3/t/f/free-full-sleeve-lehenga-lehenga-for-women-lehenga-choli-net-original-imagh2yh32qeshz9.jpeg?q=70" alt='camera-pic'/>
-          <Card.Body>
-              <p className='product-name-on-card'>
-              Embroidered Semi Stitched Lehenga Choli  (Purple)
-              </p>
-              <p className='product-price-on-card'>
-              Price: 30$
-              </p>
-          </Card.Body>
-          </Card>
-          </Col>
+          {MyView}
         </Row>
         </Container>
         </Fragment>
+        
+    )}
+    else{
+        return (
+            <Fragment>
+        <Container className='text-center' fluid={true}>
+        <div className="section-title text-center mb-55">
+        <h2>You May Also Like</h2>
+        <p className='section-sub-title'>Some Of Our Exclusive Collection</p>
+        </div>
+        <p>
+            There have no similar product
+        </p>
+        </Container>
+        </Fragment>
+        
     )
+
+    }
+
+
+
+    
   }
 }
 

@@ -4,6 +4,8 @@ import Logo from '../../assets/images/easyshop.png'
 import Ham from '../../assets/images/bars.png'
 import { Link, Navigate } from 'react-router-dom'
 import MegaMenuAll from '../home/MegaMenuAll'
+import axios from 'axios'
+import AppURL from '../../api/AppURL'
 
 class NavMenuDesktop extends Component {
   constructor(){
@@ -13,10 +15,24 @@ class NavMenuDesktop extends Component {
       ContentOverState: "ContentOverlayClose" ,
       SearchKey:"",
       SearchRedirectStatus:false,
+      CartCount:0,
     }
     this.SearchOnChange = this.SearchOnChange.bind(this);
     this.SearchOnClick = this.SearchOnClick.bind(this);
     this.searchRedirect = this.searchRedirect.bind(this);
+  }
+
+  componentDidMount(){
+    let product_code = this.props.product_code;
+    axios.get(AppURL.CartCount(product_code)).then((response) =>{
+      this.setState({CartCount:response.data})
+    }).catch(error => {
+
+    })
+  }
+
+  logout = ()=>{
+    localStorage.clear();
   }
 
   SearchOnChange(e){
@@ -59,6 +75,33 @@ class NavMenuDesktop extends Component {
   }
   
   render() {
+    let buttons;
+    if(localStorage.getItem("token")){
+      buttons = (
+        <div>
+          <Link to="/notification" className='btn '><i className='fa h4 fa-bell'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
+              </Link>
+              <Link to="/favourite" className='btn '><i className='fa h4 fa-heart'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
+              </Link>
+              <Link to='/profile' className='h4 btn'>Profile</Link>
+              <Link to='/' onClick={this.logout} className='h4 btn'>Logout</Link>
+              <Link to="/cart" className='cart-btn btn btn-dark'><i className='fa fa-shopping-cart'> {this.state.CartCount} Items</i></Link>
+        </div>
+      )
+    }else{
+      buttons = (
+        <div>
+          <Link to="/notification" className='btn '><i className='fa h4 fa-bell'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
+              </Link>
+              <Link to="/favourite" className='btn '><i className='fa h4 fa-heart'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
+              </Link>
+              <Link to='/login' className='h4 btn'>Login</Link>
+              <Link to='/register' className='h4 btn'>Register</Link>
+              <Link to="/cart" className='cart-btn btn btn-dark'><i className='fa fa-shopping-cart'> 0 Items</i></Link>
+        </div>
+      );
+    }
+
     return (
       <Fragment>
       <div className='TopSectionDown'>
@@ -85,13 +128,7 @@ class NavMenuDesktop extends Component {
             </Col>
             
             <Col className="p-1 mt-1" lg={4} sm={12} md={4} xs={12}>
-              <Link to="/notification" className='btn '><i className='fa h4 fa-bell'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
-              </Link>
-              <Link to="/favourite" className='btn '><i className='fa h4 fa-heart'></i><sup><span className='badge text-white bg-danger'>5</span></sup>
-              </Link>
-              <Link to='/login' className='h4 btn'>Login</Link>
-              <Link to='/register' className='h4 btn'>Register</Link>
-              <Link to="/cart" className='cart-btn btn btn-dark'><i className='fa fa-shopping-cart'> 3 Items</i></Link>
+              {buttons}
             </Col>
           </Row>
           {this.searchRedirect()}

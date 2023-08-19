@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Container } from 'react-bootstrap'
+import { Navigate } from 'react-router';
 
 export class Profile extends Component {
   render() {
@@ -9,6 +10,11 @@ export class Profile extends Component {
       name = this.props.user.name; 
       email = this.props.user.email; 
     }
+
+    if(!localStorage.getItem('token')){
+      return <Navigate to="/login" />
+    }
+    
     return (
       <Fragment>
         <Container className='text-center'>

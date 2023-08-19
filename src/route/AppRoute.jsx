@@ -52,19 +52,20 @@ class AppRoute extends Component {
 
         <Routes>
         <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/login" element={<UserLoginPage />} />
-        <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path="/login" element={<UserLoginPage user={this.state.user} setUser={this.setUser}/>} />
+        <Route exact path="/register" element={<RegisterPage user={this.state.user} setUser={this.setUser} />} />
         <Route exact path="/forget" element={<ForgetPasswordPage />} />
         <Route exact path="/reset/:pincode" element={<ResetPasswordPage />} />
         <Route exact path="/profile" element={<ProdilePage user={this.state.user} setUser={this.setUser}/>} />
+        <Route exact path="/logout" element={<ProdilePage user={this.state.user} setUser={this.setUser}/>} />
         <Route exact path="/contact" element={<ContactPage />} />
         <Route exact path="/purchase" element={<PurchasePage />} />
         <Route exact path="/privacy" element={<PrivacyPage />} />
         <Route exact path="/about" element={<AboutPage />} />
         <Route exact path="/refund" element={<RefundPage />} />
-        <Route exact path="/productdetails/:code" element={<ProductDetailPage />} />
+        <Route exact path="/productdetails/:code" element={<ProductDetailPage user={this.state.user}/>} />
         <Route exact path="/notification" element={<NotificationPage />} />
-        <Route exact path="/favourite" element={<FavouritePage />} />
+        <Route exact path="/favourite" element={<FavouritePage user={this.state.user}/>} />
         <Route exact path="/cart" element={<Cart />} />
         <Route exact path="/productcategory/:category" element={<ProductCategoryPage1 />} />
         <Route exact path="/productsubcategory/:category/:subcategory" element={<ProductSubCategoryPage />} />

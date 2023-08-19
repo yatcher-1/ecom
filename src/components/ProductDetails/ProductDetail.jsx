@@ -1,19 +1,120 @@
 import React, { Component, Fragment } from 'react'
 import { Container,Row,Col, Breadcrumb} from 'react-bootstrap'
-import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
+import InnerImageZoom from 'react-inner-image-zoom';
+import SuggestProduct from './SuggestProduct';
+import ReviewList from './ReviewList';
+import cogoToast from 'cogo-toast';
+import axios from 'axios';
+import AppURL from '../../api/AppURL';
+
 
 class ProductDetails extends Component {
 
-     // constructor(){
-     //      super();
-     // }
-
-     imgOnClick(e){
-          let imgSrc = e.target.getAttribute('src');
-          let previewImg = document.getElementById('previewImg');
-          ReactDOM.findDOMNode(previewImg).setAttribute('src', imgSrc);
+     constructor(){
+          super();
+          this.state={
+               previewImg:"0",
+               isSize:null,
+               isColor:null,
+               color:"",
+               size:"",
+               quantity:"",
+               product_Code:null,
+               addToCart:"Add To Cart",
+               addToFavs:"Favourites",
+          }
      }
+
+     imgOnClick = (e) => {
+          let imgSrc = e.target.getAttribute('src');
+          this.setState({previewImg:imgSrc})
+     }
+
+     addToCart = () => {
+          let isSize = this.state.isSize;
+          let isColor = this.state.isColor;
+          let color = this.state.color;
+          let size = this.state.size;
+          let quantity = this.state.quantity;
+          let product_Code = this.state.product_Code;
+          let email = this.props.User.email;
+
+          if(isColor==="YES" && color.length===0){
+               cogoToast.error('please select Color',{position:'top-right'});
+          }else if(isSize==="YES" && size.length===0){
+               cogoToast.error('please select Size',{position:'top-right'});
+          }else if(quantity.length===0){
+               cogoToast.error('please select qty',{position:'top-right'});
+          }else if(!localStorage.getItem('token')){
+               cogoToast.warn('Please Login',{position:'top-right'});
+          }else{
+               this.setState({addToCart: "Adding..."})
+               let MyFormData = new FormData();
+               MyFormData.append("product_color",color);
+               MyFormData.append("size",size);
+               MyFormData.append("quantity",quantity);
+               MyFormData.append("product_code",product_Code);
+               MyFormData.append("email",email);
+
+               axios.post(AppURL.AddToCart,MyFormData).then(response =>{
+                    if(response.data===1){
+                         cogoToast.success("Product added successfully", {position:'top-right'});
+                         this.setState({addToCart:"Add To Cart"});
+                         window.location.reload();
+                    }else{
+                         cogoToast.error("Product not added try again", {position:'top-right'});
+                         this.setState({addToCart:"Add To Cart"});
+                    }
+               }).catch(error =>{
+                    cogoToast.error("Product not added try again", {position:'top-right'});
+                    this.setState({addToCart:"Add To Cart"});
+               });
+          }
+          
+     } // end add to cart
+     
+     addToFavs = () => {
+          this.setState({addToFavs:"Adding..."})
+          let product_Code =this.state.product_Code;
+          let email = this.props.User.email;
+
+          if(!localStorage.getItem('token')){
+               cogoToast.warn('Please Login',{position:'top-right'});
+          }else{
+          axios.get(AppURL.AddFav(product_Code,email)).then(response => {
+               if(response.data===1){
+                    cogoToast.success("Favourite added successfully", {position:'top-right'});
+                    this.setState({addToFavs:"Favourite"});
+               }else{
+                    cogoToast.error("Product not added try again", {position:'top-right'});
+                    this.setState({addToFavs:"Favourite"});
+               }
+               
+          }).catch(error => {
+               cogoToast.error("Product not added try again", {position:'top-right'});
+               this.setState({addToFavs:"Favourite"});
+          })
+     }
+
+     } // end add to fav
+ 
+     colorOnChange = (e) => {
+          let color = e.target.value;
+          this.setState({color:color})
+     }
+
+     sizeOnChange = (e) => {
+          let size = e.target.value;
+          this.setState({size:size})
+     }
+
+     quantityOnChange = (e) => {
+          let quantity = e.target.value;
+          this.setState({quantity:quantity})
+     }
+
 
      PriceOption(price, special_price){
           if(special_price==="na"){
@@ -44,6 +145,10 @@ class ProductDetails extends Component {
           let remark = ProductAllData["productList"][0]["remark"];
           let special_price = ProductAllData["productList"][0]["special_price"];
           let star = ProductAllData["productList"][0]["star"];
+
+          if(this.state.previewImg === "0"){
+               this.setState({previewImg:image})
+          }
 
           let image_two = ProductAllData["productDetails"][0]["image_two"];
           let image_three = ProductAllData["productDetails"][0]["image_three"];
@@ -76,10 +181,30 @@ class ProductDetails extends Component {
                SizeDiv="d-none"
           }
 
+
+          if(this.state.isSize===null){
+               if(size!=="na"){
+                    this.setState({isSize:"YES"})
+               }else{
+                    this.setState({isSize:"NO"})
+               }
+          }
+
+          if(this.state.isColor===null){
+               if(color!=="na"){
+                    this.setState({isColor:"YES"})
+               }else{
+                    this.setState({isColor:"NO"})
+               }
+          }
+
+          if(this.state.product_Code===null){
+               this.setState({product_Code:productCode})
+          }
           
           return (
                <Fragment>
-               <Container  className="BetweenTwoSection"  fluid={"true"}>
+               <Container className="BetweenTwoSection"  fluid={"true"}>
                <div className="breadbody">
         <Breadcrumb>
         <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
@@ -100,11 +225,11 @@ class ProductDetails extends Component {
         </Breadcrumb.Item>
         </Breadcrumb>
         </div>
-                   <Row className="p-2">
+          <Row className="p-2">
           <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
           <Row>
           <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-          <img id='previewImg' className="bigimage" src={image} alt=''/>
+          <InnerImageZoom className="detailimage" zoomType='hover' zoomScale={1.8} src={this.state.previewImg} zoomSrc={this.state.previewImg} />
           <Container  className="my-3">
                <Row>
                     <Col className="p-0 m-0"  md={3} lg={3} sm={3} xs={3}>
@@ -133,7 +258,7 @@ class ProductDetails extends Component {
 
           <div className={ColorDiv}>
           <h6 className="mt-2">Choose Color</h6>
-               <select className='form-control form-select'>
+               <select onChange={this.colorOnChange} className='form-control form-select'>
                     <option>Choose Color</option>
                     {ColorOption}
                </select>
@@ -141,7 +266,7 @@ class ProductDetails extends Component {
 
           <div className={SizeDiv}>
           <h6 className="mt-2">Choose Size</h6>
-               <select className='form-control form-select'>
+               <select onChange={this.sizeOnChange} className='form-control form-select'>
                     <option>Choose Size</option>
                     {SizeOption}
                </select>
@@ -149,9 +274,8 @@ class ProductDetails extends Component {
 
           <div className="">
           <h6 className="mt-2">Choose Qty</h6>
-               <select className='form-control form-select'>
+               <select onChange={this.quantityOnChange} className='form-control form-select'>
                     <option>Choose Qty</option>
-                    <option value={0}>0</option>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                     <option value={3}>3</option>
@@ -166,9 +290,9 @@ class ProductDetails extends Component {
           </div>
 
           <div className="input-group mt-3">
-               <button className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  Add To Cart</button>
+               <button onClick={this.addToCart} className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  {this.state.addToCart}</button>
                <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
-               <button className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
+               <button onClick={this.addToFavs} className="btn btn-primary m-1"> <i className="fa fa-heart"></i> {this.state.addToFavs}</button>
           </div>
           </Col>
      </Row>
@@ -176,28 +300,20 @@ class ProductDetails extends Component {
      <Row>
           <Col className="" md={6} lg={6} sm={12} xs={12}>
           <h6 className="mt-2">DETAILS</h6>
-          <p>{longDesc}</p>
+          <p> {longDesc} </p>
           </Col>
-
           <Col className="" md={6} lg={6} sm={12} xs={12}>
-          <h6 className="mt-2">REVIEWS</h6>
-          <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-
-          <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-
-          <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+          <ReviewList code={product_id}/>
           </Col>
         </Row>
         </Col>
-                   </Row>
-               </Container>
-               
-               </Fragment>
+        </Row>
+        </Container>
+        <SuggestProduct subcategory={subCategory}  />
+        </Fragment>
           )
      }
 }
 
 export default ProductDetails
+

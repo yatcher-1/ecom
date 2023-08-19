@@ -7,8 +7,23 @@ class AppURL{
     static AllSlider = this.BaseURL+"/allslider"
     static UserLogin = this.BaseURL+"/login"
     static UserRegister = this.BaseURL+"/register"
+    static UserForgetPassword = this.BaseURL+"/forgetpassword"
+    static UserResetPassword = this.BaseURL+"/resetpassword"
     static UserData = this.BaseURL+"/user"
     static NotificationHistory = this.BaseURL+"/notification"
+    static AddToCart = this.BaseURL+"/addtocart"
+    static CartCount(product_code){
+      return this.BaseURL+"/cartcount/"+product_code; 
+   } 
+   static AddFav(product_code, email){
+      return `${this.BaseURL}/fav/${product_code}/${email}`; 
+   }
+   static FavouriteList(email){
+      return this.BaseURL+"/favouritelist/"+email; 
+   } 
+   static FavouriteRemove(product_code, email){
+      return `${this.BaseURL}/favouriteremove/${product_code}/${email}`; 
+   }
     static ProductListByRemark(Remark){
        return this.BaseURL+"/productlistbyremark/"+Remark; 
     } 
@@ -20,6 +35,12 @@ class AppURL{
       } 
       static ProductDetails(code){
          return this.BaseURL+"/productdetails/"+code; 
+      } 
+      static SimilarProduct(subcategory){
+         return this.BaseURL+"/similar/"+subcategory; 
+      } 
+      static ReviewList(code){
+         return this.BaseURL+"/reviewlist/"+code; 
       } 
       static ProductBySearch(searchkey){
          return this.BaseURL+"/search/"+searchkey; 

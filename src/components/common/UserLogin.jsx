@@ -4,6 +4,9 @@ import LoginImage from "../../assets/images/login.png"
 import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios';
 import AppURL from '../../api/AppURL';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class UserLogin extends Component {
 
@@ -28,8 +31,12 @@ class UserLogin extends Component {
         axios.post(AppURL.UserLogin,data).then(response => {
             localStorage.setItem('token',response.data.token);
             this.setState({loggedIn:true});
+            this.props.setUser(response.data.user);
+            document.getElementById("reset").reset();
         }).catch(error => {
-    
+            toast.error(error.response.data.message, {
+                position: "top-right"
+            });
         });
     }
 
@@ -37,9 +44,13 @@ class UserLogin extends Component {
 
     // after Login Redirect to profile page
     if(this.state.loggedIn){
-       return <Navigate to={"/profile"} />
+       return <Navigate to="/profile" />
     }else{
 
+    }
+
+    if(localStorage.getItem('token')){
+        return <Navigate to="/profile" />
     }
 
     return (
@@ -49,7 +60,7 @@ class UserLogin extends Component {
         <Col className='shadow-sm bg-white mt-2' md={12} lg={12} sm={12} xs={12}>
             <Row className='text-center'>
                 <Col className='d-flex justify-content-center' md={6} lg={6} sm={12} xs={12}>
-                    <Form onSubmit={this.FormSubmit} className='onboardForm'>
+                    <Form id='reset' onSubmit={this.FormSubmit} className='onboardForm'>
                         <h4 className='section-title-login'>User Sign-in</h4>
                         
                         <input type='email' onChange={(e)=>{this.setState({email:e.target.value})}} className='form-control m-2' placeholder='Enter your email'/>
@@ -77,6 +88,7 @@ class UserLogin extends Component {
         </Col>
     </Row>
 </Container>
+<ToastContainer />
 </Fragment>
     )
   }

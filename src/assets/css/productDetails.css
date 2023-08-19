@@ -17,8 +17,11 @@
     font-weight: 400;
 }
 
-.bigimage{
-    height: 60%;
+.detailsimage{
+    max-width: 60%;
+    height: 499px;
+    margin: 0px;
+    margin-left: 142px;
 }
 
 .smallimage{
