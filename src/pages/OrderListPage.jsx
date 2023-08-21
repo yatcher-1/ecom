@@ -1,15 +1,15 @@
-import React, { Component, Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import NavMenuDesktop from '../components/common/NavMenuDesktop'
 import NavMenuMobile from '../components/common/NavMenuMobile'
 import FooterDesktop from '../components/common/FooterDesktop'
 import FooterMobile from '../components/common/FooterMobile'
-import Carts from '../components/Cart/Carts'
 import SliderLoading from '../components/PlaceHolder/SliderLoading'
 import axios from 'axios'
 import AppURL from '../api/AppURL'
 import { useParams } from 'react-router'
+import OrderList from '../components/Cart/OrderList'
 
-function Cart(props) {
+function OrderListPage(props) {
   const {code} = useParams();
   const [ProductData, setData] = useState([])
   const [isLoading, loadData] = useState("")
@@ -59,7 +59,7 @@ function Cart(props) {
           <div className='Mobile'>
             <NavMenuMobile />
           </div>
-          <Carts ProductData={ProductData} User={user} />
+          <OrderList ProductData={ProductData} User={user} />
           <div className='Desktop'>
             <FooterDesktop />
           </div>
@@ -71,4 +71,4 @@ function Cart(props) {
       }
 }
 
-export default Cart
+export default OrderListPage

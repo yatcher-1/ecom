@@ -56,3 +56,10 @@
     font-weight: 600;
     border-radius: 10px;
 }
+
+.user-profile{
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    margin-left: 120px;
+}

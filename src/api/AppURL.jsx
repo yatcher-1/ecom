@@ -12,9 +12,25 @@ class AppURL{
     static UserData = this.BaseURL+"/user"
     static NotificationHistory = this.BaseURL+"/notification"
     static AddToCart = this.BaseURL+"/addtocart"
+    static CartOrder = this.BaseURL+"/cartorder"
     static CartCount(product_code){
       return this.BaseURL+"/cartcount/"+product_code; 
    } 
+   static CartList(email){
+      return this.BaseURL+"/cartlist/"+email; 
+   } 
+   static OrderListByUser(email){
+      return this.BaseURL+"/orderlistbyuser/"+email; 
+   } 
+   static CartRemove(id){
+      return `${this.BaseURL}/cartremove/${id}`; 
+   }
+   static CartItemPlus(id, quantity, price){
+      return `${this.BaseURL}/cartitemplus/${id}/${quantity}/${price}`; 
+   }
+   static CartItemMinus(id, quantity, price){
+      return `${this.BaseURL}/cartitemminus/${id}/${quantity}/${price}`; 
+   }
    static AddFav(product_code, email){
       return `${this.BaseURL}/fav/${product_code}/${email}`; 
    }

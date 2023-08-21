@@ -21,6 +21,7 @@ import ProdilePage from '../pages/ProdilePage'
 import axios from 'axios'
 import AppURL from '../api/AppURL'
 import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import OrderListPage from '../pages/OrderListPage'
 
 
 class AppRoute extends Component {
@@ -66,11 +67,12 @@ class AppRoute extends Component {
         <Route exact path="/productdetails/:code" element={<ProductDetailPage user={this.state.user}/>} />
         <Route exact path="/notification" element={<NotificationPage />} />
         <Route exact path="/favourite" element={<FavouritePage user={this.state.user}/>} />
-        <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/cart" element={<Cart user={this.state.user}/>} />
         <Route exact path="/productcategory/:category" element={<ProductCategoryPage1 />} />
         <Route exact path="/productsubcategory/:category/:subcategory" element={<ProductSubCategoryPage />} />
         <Route exact path="/notification" element={<NotificationPage />} />
         <Route exact path="/productbysearch/:searchkey" element={<Search />} />
+        <Route exact path="/orderlist" element={<OrderListPage user={this.state.user}/>} />
         </Routes>
       </Fragment>
     )

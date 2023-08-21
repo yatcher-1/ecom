@@ -15,7 +15,7 @@ class Favourite extends Component {
     }
   }  
   componentDidMount(){
-    axios.get(AppURL.FavouriteList(this.props.User.email)).then(response => {
+    axios.get(AppURL.CartItemPlus(this.props.User.email)).then(response => {
         this.setState({ProductData:response.data,isLoading:"d-none",mainDiv:""})
     }).catch(error => {
 
